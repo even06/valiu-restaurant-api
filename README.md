@@ -20,26 +20,33 @@ You will need Node.js, npm, and MySQL installed on your machine.
 
 2. **Environment Setup**
 
-Create a .env file in the root of your project with the following content:
+   Create a .env file in the root of your project with the following content:
 
-    ```bash
-    DB_HOST=localhost
-    DB_USER=yourDatabaseUser
-    DB_PASS=yourDatabasePassword
-    DB_NAME=valiu_restaurant
-    PORT=3000
-    ```
+      ```bash
+      DB_HOST=localhost
+      DB_USER=yourDatabaseUser
+      DB_PASS=yourDatabasePassword
+      DB_NAME=valiu_restaurant
+      PORT=3000
+      ```
 
 3. **Import Database Schema**
 
-Import valiu_restaurant.sql into your database.
+   Import db_schema.sql into your database.
 
 
 ### Running the Server
 
 To start the server, run:
    ```bash
-   npx ts-node app.ts
+   npm start
+   ```
+
+### Compile
+
+To compile the server run
+   ```bash
+   tsc
    ```
 
 ### API Endpoints
