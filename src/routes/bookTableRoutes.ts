@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { query, param } from 'express-validator';
+import { query, body } from 'express-validator';
 import mysql from 'mysql2/promise';
 import { FieldPacket, RowDataPacket } from 'mysql2';
 import { RestaurantRequest, TableAvailability } from '../interfaces/types';
@@ -18,6 +18,8 @@ const db = mysql.createPool({
 
 router.post('/',
     [
+        body('name').not().isEmpty().trim().escape().withMessage('Name is required.'),
+        body('email').isEmail().normalizeEmail().withMessage('Valid email is required.'),
         query('partySize').isInt({ gt: 0 }).withMessage('Number of guests must be a positive number.')
     ], async (req: RestaurantRequest, res: Response) => {
         const { date, guests, restaurantId, name, email } = req.body;
@@ -33,6 +35,8 @@ router.post('/',
         // Check if booking date is not before today
         if (bookingDate < today) {
             return res.status(400).json({ message: "Booking date must be today or later." });
+        } else if (!name.trim() || !email.trim()) {
+            return res.status(400).json({ message: "You must include a name and email for the reservation." });
         }
         
         try {
